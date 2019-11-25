@@ -1,0 +1,3 @@
+[submodule "test/WinSockSPI"]
+	path = test/WinSockSPI
+	url = https://github.com/YouRancestor/SPITest.git
