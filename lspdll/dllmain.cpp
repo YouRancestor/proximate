@@ -321,7 +321,7 @@ WSPAPI WSPStringToAddress(
 
 
 
-bool FindProtocolById(DWORD entryId, LPWSAPROTOCOL_INFO info)
+bool FindProtocolByEntryId(DWORD entryId, LPWSAPROTOCOL_INFO info)
 {
     bool ret = false;
     DWORD dwBufferLen = 16384;
@@ -414,7 +414,7 @@ WSPStartup(
 
     // get base protocol info
     WSAPROTOCOL_INFO baseProtocolInfo = { 0 };
-    if (!FindProtocolById(baseEntryId, &baseProtocolInfo))
+    if (!FindProtocolByEntryId(baseEntryId, &baseProtocolInfo))
     {
         return WSAEPROVIDERFAILEDINIT;
     }
