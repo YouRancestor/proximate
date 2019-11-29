@@ -1,3 +1,6 @@
 [submodule "test/WinSockSPI"]
 	path = test/WinSockSPI
 	url = https://github.com/YouRancestor/SPITest.git
+[submodule "tool/LSPInstaller"]
+	path = tool/LSPInstaller
+	url = https://github.com/YouRancestor/LSPInstaller.git
