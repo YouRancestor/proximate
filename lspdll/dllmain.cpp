@@ -1,12 +1,21 @@
 ﻿#include <WinSock2.h>
 #include <WS2spi.h>
 #include <tchar.h>
-
-#define N_(x) _T(x)
-
-TCHAR exepath[MAX_PATH] = { 0 };
+#include <stdio.h>
+TCHAR exePath[MAX_PATH] = { 0 };
+TCHAR proximateRoot[MAX_PATH] = { 0 };
 
 WSPPROC_TABLE baseProcTable = { 0 };
+
+FILE* traceFile = NULL;
+
+#define TRACE \
+do{ \
+if (traceFile) { \
+fwrite(__func__, 1, strlen(__func__), traceFile ); \
+fwrite("\n", 1, 1, traceFile); \
+} \
+}while(0)
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -16,9 +25,37 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
+    {
+        GetModuleFileName(0, exePath, MAX_PATH);
+        DWORD len = GetEnvironmentVariable(_T("PROXIMATE_ROOT"), proximateRoot, MAX_PATH);
+        if (len <= 0)
+            break;
+        TCHAR traceFilePath[MAX_PATH];
+        memcpy(traceFilePath, proximateRoot, MAX_PATH * sizeof(TCHAR));
+        TCHAR filename[64];
+        LARGE_INTEGER count;
+        QueryPerformanceCounter(&count);
+        _stprintf_s(filename, 64, _T("\\trace\\trace_%lld.log"), count.QuadPart);
+        lstrcat(traceFilePath, filename);
+        _tfopen_s(&traceFile, traceFilePath, _T("w"));
+        if (traceFile)
+        {
+            char path[MAX_PATH];
+            sprintf_s(path, "%ls\n", exePath);
+            fwrite(path, sizeof(char), strlen(path), traceFile);
+        }
+        break;
+
+    }
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
+        break;
     case DLL_PROCESS_DETACH:
+        if (traceFile)
+        {
+            fclose(traceFile);
+            traceFile = NULL;
+        }
         break;
     }
     return TRUE;
@@ -376,7 +413,7 @@ WSPStartup(
         lpWSPData->wVersion = MAKEWORD(2, HIBYTE(wVersionRequested));
         lpWSPData->wHighVersion = MAKEWORD(2, 2);
     }
-    GetModuleFileName(0, exepath, MAX_PATH);
+    GetModuleFileName(0, exePath, MAX_PATH);
 
     REGISTER_PROC(lpProcTable, WSPAccept);
     REGISTER_PROC(lpProcTable, WSPAddressToString);
@@ -452,6 +489,7 @@ WSPAPI WSPAccept(
     _In_opt_ DWORD_PTR dwCallbackData,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPAccept(s, addr, addrlen, lpfnCondition, dwCallbackData, lpErrno);
 }
 
@@ -464,6 +502,7 @@ WSPAPI WSPAddressToString(
     _Inout_ LPDWORD lpdwAddressStringLength,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPAddressToString(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength, lpErrno);
 }
 
@@ -475,6 +514,7 @@ WSPAPI WSPAsyncSelect(
     _In_ long lEvent,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPAsyncSelect(s, hWnd, wMsg, lEvent, lpErrno);
 }
 
@@ -485,6 +525,7 @@ WSPAPI WSPBind(
     _In_ int namelen,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPBind(s, name, namelen, lpErrno);
 }
 
@@ -492,6 +533,7 @@ int
 WSPAPI WSPCancelBlockingCall(
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPCancelBlockingCall(lpErrno);
 }
 
@@ -499,6 +541,7 @@ int
 WSPAPI WSPCleanup(
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPCleanup(lpErrno);
 }
 
@@ -507,6 +550,7 @@ WSPAPI WSPCloseSocket(
     _In_ SOCKET s,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPCloseSocket(s, lpErrno);
 }
 
@@ -521,6 +565,7 @@ WSPAPI WSPConnect(
     _In_opt_ LPQOS lpGQOS,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPConnect(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS, lpErrno);
 }
 
@@ -531,6 +576,7 @@ WSPAPI WSPDuplicateSocket(
     _Out_ LPWSAPROTOCOL_INFOW lpProtocolInfo,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPDuplicateSocket(s, dwProcessId, lpProtocolInfo, lpErrno);
 }
 
@@ -541,6 +587,7 @@ WSPAPI WSPEnumNetworkEvents(
     _Out_ LPWSANETWORKEVENTS lpNetworkEvents,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPEnumNetworkEvents(s, hEventObject, lpNetworkEvents, lpErrno);
 }
 
@@ -551,6 +598,7 @@ WSPAPI WSPEventSelect(
     _In_ long lNetworkEvents,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPEventSelect(s, hEventObject, lNetworkEvents, lpErrno);
 }
 
@@ -563,6 +611,7 @@ WSPAPI WSPGetOverlappedResult(
     _Out_ LPDWORD lpdwFlags,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPGetOverlappedResult(s, lpOverlapped, lpcbTransfer, fWait, lpdwFlags, lpErrno);
 }
 
@@ -573,6 +622,7 @@ WSPAPI WSPGetPeerName(
     _Inout_ LPINT namelen,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPGetPeerName(s, name, namelen, lpErrno);
 }
 
@@ -583,6 +633,7 @@ WSPAPI WSPGetSockName(
     _Inout_ LPINT namelen,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPGetSockName(s, name, namelen, lpErrno);
 }
 
@@ -595,6 +646,7 @@ WSPAPI WSPGetSockOpt(
     _Inout_ LPINT optlen,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPGetSockOpt(s, level, optname, optval, optlen, lpErrno);
 }
 
@@ -605,6 +657,7 @@ WSPAPI WSPGetQOSByName(
     _Out_ LPQOS lpQOS,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPGetQOSByName(s, lpQOSName, lpQOS, lpErrno);
 }
 
@@ -622,6 +675,7 @@ WSPAPI WSPIoctl(
     _In_opt_ LPWSATHREADID lpThreadId,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPIoctl(s, dwIoControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
 }
 
@@ -637,6 +691,7 @@ WSPAPI WSPJoinLeaf(
     _In_ DWORD dwFlags,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPJoinLeaf(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS, dwFlags, lpErrno);
 }
 
@@ -647,6 +702,7 @@ WSPAPI WSPListen(
     _In_ int backlog,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPListen(s, backlog, lpErrno);
 }
 
@@ -662,6 +718,7 @@ WSPAPI WSPRecv(
     _In_opt_ LPWSATHREADID lpThreadId,
     _In_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPRecv(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
 }
 
@@ -671,6 +728,7 @@ WSPAPI WSPRecvDisconnect(
     _In_opt_ LPWSABUF lpInboundDisconnectData,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPRecvDisconnect(s, lpInboundDisconnectData, lpErrno);
 }
 
@@ -688,6 +746,7 @@ WSPAPI WSPRecvFrom(
     _In_opt_ LPWSATHREADID lpThreadId,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPRecvFrom(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpFrom, lpFromlen, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
 }
 
@@ -700,6 +759,7 @@ WSPAPI WSPSelect(
     _In_opt_ const struct timeval FAR* timeout,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPSelect(nfds, readfds, writefds, exceptfds, timeout, lpErrno);
 }
 
@@ -715,6 +775,7 @@ WSPAPI WSPSend(
     _In_opt_ LPWSATHREADID lpThreadId,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPSend(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
 }
 
@@ -724,6 +785,7 @@ WSPAPI WSPSendDisconnect(
     _In_opt_ LPWSABUF lpOutboundDisconnectData,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPSendDisconnect(s, lpOutboundDisconnectData, lpErrno);
 }
 
@@ -741,6 +803,7 @@ WSPAPI WSPSendTo(
     _In_opt_ LPWSATHREADID lpThreadId,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPSendTo(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpTo, iTolen, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
 }
 
@@ -753,6 +816,7 @@ WSPAPI WSPSetSockOpt(
     _In_ int optlen,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPSetSockOpt(s, level, optname, optval, optlen, lpErrno);
 }
 
@@ -762,6 +826,7 @@ WSPAPI WSPShutdown(
     _In_ int how,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPShutdown(s, how, lpErrno);
 }
 
@@ -775,6 +840,7 @@ WSPAPI WSPSocket(
     _In_ DWORD dwFlags,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPSocket(af, type, protocol, lpProtocolInfo, g, dwFlags, lpErrno);
 }
 
@@ -787,5 +853,6 @@ WSPAPI WSPStringToAddress(
     _Inout_ LPINT lpAddressLength,
     _Out_ LPINT lpErrno
 ) {
+    TRACE;
     return baseProcTable.lpWSPStringToAddress(AddressString, AddressFamily, lpProtocolInfo, lpAddress, lpAddressLength, lpErrno);
 }
