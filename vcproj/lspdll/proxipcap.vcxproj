@@ -19,7 +19,48 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\lspdll\Accept.cpp" />
+    <ClCompile Include="..\..\lspdll\AddressToString.cpp" />
+    <ClCompile Include="..\..\lspdll\AsyncSelect.cpp" />
+    <ClCompile Include="..\..\lspdll\Bind.cpp" />
+    <ClCompile Include="..\..\lspdll\CancelBlockingCall.cpp" />
+    <ClCompile Include="..\..\lspdll\Cleanup.cpp" />
+    <ClCompile Include="..\..\lspdll\CloseSocket.cpp" />
+    <ClCompile Include="..\..\lspdll\Connect.cpp" />
     <ClCompile Include="..\..\lspdll\dllmain.cpp" />
+    <ClCompile Include="..\..\lspdll\DuplicateSocket.cpp" />
+    <ClCompile Include="..\..\lspdll\EnumNetworkEvents.cpp" />
+    <ClCompile Include="..\..\lspdll\EventSelect.cpp" />
+    <ClCompile Include="..\..\lspdll\GetOverlappedResult.cpp" />
+    <ClCompile Include="..\..\lspdll\GetPeerName.cpp" />
+    <ClCompile Include="..\..\lspdll\GetQOSByName.cpp" />
+    <ClCompile Include="..\..\lspdll\GetSockName.cpp" />
+    <ClCompile Include="..\..\lspdll\GetSockOpt.cpp" />
+    <ClCompile Include="..\..\lspdll\Ioctl.cpp" />
+    <ClCompile Include="..\..\lspdll\JoinLeaf.cpp" />
+    <ClCompile Include="..\..\lspdll\Listen.cpp" />
+    <ClCompile Include="..\..\lspdll\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Recv.cpp" />
+    <ClCompile Include="..\..\lspdll\RecvDisconnect.cpp" />
+    <ClCompile Include="..\..\lspdll\RecvFrom.cpp" />
+    <ClCompile Include="..\..\lspdll\Select.cpp" />
+    <ClCompile Include="..\..\lspdll\Send.cpp" />
+    <ClCompile Include="..\..\lspdll\SendDisconnect.cpp" />
+    <ClCompile Include="..\..\lspdll\SendTo.cpp" />
+    <ClCompile Include="..\..\lspdll\SetSockOpt.cpp" />
+    <ClCompile Include="..\..\lspdll\Shutdown.cpp" />
+    <ClCompile Include="..\..\lspdll\Socket.cpp" />
+    <ClCompile Include="..\..\lspdll\StringToAddress.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lspdll\lspglobal.h" />
+    <ClInclude Include="..\..\lspdll\pch.h" />
+    <ClInclude Include="..\..\lspdll\wspmethods.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -96,6 +137,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;PROXIPCAP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,6 +155,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;PROXIPCAP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -130,6 +175,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;PROXIPCAP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,6 +196,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;PROXIPCAP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

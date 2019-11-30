@@ -1,22 +1,129 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="资源文件">
+    <Filter Include="Resources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="WSPMethods">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{e4a5e2cb-6de3-4d6d-9f26-533e8bc0ea05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lspdll\dllmain.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\..\lspdll\AddressToString.cpp">
+      <Filter>WSPMethods</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lspdll\Accept.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\AsyncSelect.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Bind.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\CancelBlockingCall.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Cleanup.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\CloseSocket.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Connect.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\DuplicateSocket.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\EnumNetworkEvents.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\EventSelect.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\GetOverlappedResult.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\GetPeerName.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\GetSockName.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\GetSockOpt.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\GetQOSByName.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Ioctl.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\JoinLeaf.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Listen.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Recv.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\RecvDisconnect.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\RecvFrom.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Select.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Send.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\SendDisconnect.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\SendTo.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\SetSockOpt.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Shutdown.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\Socket.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\StringToAddress.cpp">
+      <Filter>WSPMethods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\dllmain.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\pch.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lspdll\wspmethods.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lspdll\lspglobal.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lspdll\pch.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
