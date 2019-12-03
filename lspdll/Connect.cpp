@@ -11,5 +11,7 @@ WSPAPI WSPConnect(
     _In_opt_ LPQOS lpGQOS,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPConnect(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS, lpErrno);
     return baseProcTable.lpWSPConnect(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS, lpErrno);
 }

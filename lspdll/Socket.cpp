@@ -11,5 +11,8 @@ WSPAPI WSPSocket(
     _In_ DWORD dwFlags,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPSocket(af, type, protocol, lpProtocolInfo, g, dwFlags, lpErrno);
+
     return baseProcTable.lpWSPSocket(af, type, protocol, lpProtocolInfo, g, dwFlags, lpErrno);
 }

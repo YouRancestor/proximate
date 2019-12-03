@@ -13,5 +13,7 @@ WSPAPI WSPSend(
     _In_opt_ LPWSATHREADID lpThreadId,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPSend(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
     return baseProcTable.lpWSPSend(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
 }

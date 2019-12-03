@@ -24,8 +24,15 @@
     <ClCompile Include="..\..\lspdll\AsyncSelect.cpp" />
     <ClCompile Include="..\..\lspdll\Bind.cpp" />
     <ClCompile Include="..\..\lspdll\CancelBlockingCall.cpp" />
+    <ClCompile Include="..\..\lspdll\cJSON.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\lspdll\Cleanup.cpp" />
     <ClCompile Include="..\..\lspdll\CloseSocket.cpp" />
+    <ClCompile Include="..\..\lspdll\ConfigParse.cpp" />
     <ClCompile Include="..\..\lspdll\Connect.cpp" />
     <ClCompile Include="..\..\lspdll\dllmain.cpp" />
     <ClCompile Include="..\..\lspdll\DuplicateSocket.cpp" />
@@ -58,6 +65,7 @@
     <ClCompile Include="..\..\lspdll\StringToAddress.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\lspdll\cJSON.h" />
     <ClInclude Include="..\..\lspdll\lspglobal.h" />
     <ClInclude Include="..\..\lspdll\pch.h" />
     <ClInclude Include="..\..\lspdll\wspmethods.h" />
@@ -116,19 +124,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)..\bin\lspdll32</OutDir>
+    <OutDir>$(SolutionDir)..\bin\lspdll32\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)..\bin\lspdll64</OutDir>
+    <OutDir>$(SolutionDir)..\bin\lspdll64\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)..\bin\lspdll32</OutDir>
+    <OutDir>$(SolutionDir)..\bin\lspdll32\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)..\bin\lspdll64</OutDir>
+    <OutDir>$(SolutionDir)..\bin\lspdll64\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

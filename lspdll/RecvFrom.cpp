@@ -15,5 +15,7 @@ WSPAPI WSPRecvFrom(
     _In_opt_ LPWSATHREADID lpThreadId,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPRecvFrom(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpFrom, lpFromlen, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
     return baseProcTable.lpWSPRecvFrom(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpFrom, lpFromlen, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
 }

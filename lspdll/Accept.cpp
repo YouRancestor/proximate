@@ -9,5 +9,7 @@ WSPAPI WSPAccept(
     _In_opt_ DWORD_PTR dwCallbackData,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPAccept(s, addr, addrlen, lpfnCondition, dwCallbackData, lpErrno);
     return baseProcTable.lpWSPAccept(s, addr, addrlen, lpfnCondition, dwCallbackData, lpErrno);
 }

@@ -13,5 +13,8 @@ WSPAPI WSPJoinLeaf(
     _In_ DWORD dwFlags,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPJoinLeaf(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS, dwFlags, lpErrno);
+
     return baseProcTable.lpWSPJoinLeaf(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS, dwFlags, lpErrno);
 }

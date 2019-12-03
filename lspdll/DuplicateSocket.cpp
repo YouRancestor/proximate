@@ -7,5 +7,7 @@ WSPAPI WSPDuplicateSocket(
     _Out_ LPWSAPROTOCOL_INFOW lpProtocolInfo,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPDuplicateSocket(s, dwProcessId, lpProtocolInfo, lpErrno);
     return baseProcTable.lpWSPDuplicateSocket(s, dwProcessId, lpProtocolInfo, lpErrno);
 }

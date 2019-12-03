@@ -8,5 +8,8 @@ WSPAPI WSPAsyncSelect(
     _In_ long lEvent,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPAsyncSelect(s, hWnd, wMsg, lEvent, lpErrno);
+
     return baseProcTable.lpWSPAsyncSelect(s, hWnd, wMsg, lEvent, lpErrno);
 }

@@ -114,6 +114,12 @@
     <ClCompile Include="..\..\lspdll\pch.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lspdll\ConfigParse.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lspdll\cJSON.c">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lspdll\wspmethods.h">
@@ -123,6 +129,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lspdll\pch.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lspdll\cJSON.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

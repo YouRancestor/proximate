@@ -8,5 +8,7 @@ WSPAPI WSPGetSockName(
     _Inout_ LPINT namelen,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPGetSockName(s, name, namelen, lpErrno);
     return baseProcTable.lpWSPGetSockName(s, name, namelen, lpErrno);
 }

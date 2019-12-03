@@ -8,5 +8,7 @@ WSPAPI WSPGetQOSByName(
     _Out_ LPQOS lpQOS,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPGetQOSByName(s, lpQOSName, lpQOS, lpErrno);
     return baseProcTable.lpWSPGetQOSByName(s, lpQOSName, lpQOS, lpErrno);
 }

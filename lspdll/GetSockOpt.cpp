@@ -10,5 +10,7 @@ WSPAPI WSPGetSockOpt(
     _Inout_ LPINT optlen,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPGetSockOpt(s, level, optname, optval, optlen, lpErrno);
     return baseProcTable.lpWSPGetSockOpt(s, level, optname, optval, optlen, lpErrno);
 }

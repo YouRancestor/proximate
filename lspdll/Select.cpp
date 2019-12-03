@@ -10,5 +10,7 @@ WSPAPI WSPSelect(
     _In_opt_ const struct timeval FAR* timeout,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPSelect(nfds, readfds, writefds, exceptfds, timeout, lpErrno);
     return baseProcTable.lpWSPSelect(nfds, readfds, writefds, exceptfds, timeout, lpErrno);
 }

@@ -8,5 +8,7 @@ WSPAPI WSPGetPeerName(
     _Inout_ LPINT namelen,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPGetPeerName(s, name, namelen, lpErrno);
     return baseProcTable.lpWSPGetPeerName(s, name, namelen, lpErrno);
 }

@@ -1,8 +1,11 @@
 ﻿#include "pch.h"
+#include <vector>
+#include <stdint.h>
+#include <string>
 
 #define N_(x) _T(x)
 
-TCHAR exepath[MAX_PATH] = { 0 };
+TCHAR exePath[MAX_PATH] = { 0 };
 
 WSPPROC_TABLE baseProcTable = { 0 };
 
@@ -22,6 +25,49 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     return TRUE;
 }
 
+struct PortRange
+{
+    UINT start;
+    UINT end;
+};
+
+
+// 32bit IPv4 address
+// example:
+//   192  .  168  .   0   .   1
+// part[0].part[1].part[2].part[3]
+struct ipv4
+{
+    uint8_t part[4];
+};
+
+// 128bit IPv6 address
+// example:
+//   2001 :  0db8 :  3c4d :  0015 :  0000 :  0000 :  1a2f :  1a2b
+// part[0]:part[1]:part[2]:part[3]:part[4]:part[5]:part[6]:part[7]
+struct ipv6
+{
+    uint16_t part[8];
+};
+
+union IpAddress
+{
+    ipv4 addr4;
+    ipv6 addr6;
+};
+
+struct IpAddressRange
+{
+    IpAddress start;
+    IpAddress end;
+};
+
+
+
+Rule config = { 0 };
+
+
+Protocol* chain = NULL;
 
 
 bool FindProtocolByEntryId(DWORD entryId, LPWSAPROTOCOL_INFO info)
@@ -79,7 +125,7 @@ WSPStartup(
         lpWSPData->wVersion = MAKEWORD(2, HIBYTE(wVersionRequested));
         lpWSPData->wHighVersion = MAKEWORD(2, 2);
     }
-    GetModuleFileName(0, exepath, MAX_PATH);
+    GetModuleFileName(0, exePath, MAX_PATH);
 
     REGISTER_PROC(lpProcTable, WSPAccept);
     REGISTER_PROC(lpProcTable, WSPAddressToString);
@@ -140,7 +186,33 @@ WSPStartup(
     LPWSPSTARTUP baseWSPStartup = (LPWSPSTARTUP)GetProcAddress(baseProtoclDll, "WSPStartup");
     if (NULL == baseWSPStartup)
         return WSAEPROVIDERFAILEDINIT;
-    return baseWSPStartup(wVersionRequested, lpWSPData, lpProtocolInfo, UpcallTable, &baseProcTable);
+
+    error = baseWSPStartup(wVersionRequested, lpWSPData, lpProtocolInfo, UpcallTable, &baseProcTable);
+
+    if (error)
+    {
+        return error;
+    }
+
+    if (!ReadRule(&config))
+    {
+        // parse config file failed
+        return 0;
+    }
+    
+    if (config.needProxy)
+    {
+        chain = LoadProtocol(config, baseProcTable);
+        if (!chain)
+        {
+            // faild on load protocol chain
+            return 0;
+        }
+
+
+    }
+
+    return 0;
 
 }
 

@@ -10,5 +10,8 @@ WSPAPI WSPAddressToString(
     _Inout_ LPDWORD lpdwAddressStringLength,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPAddressToString(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength, lpErrno);
+
     return baseProcTable.lpWSPAddressToString(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength, lpErrno);
 }

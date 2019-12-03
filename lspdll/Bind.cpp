@@ -8,5 +8,8 @@ WSPAPI WSPBind(
     _In_ int namelen,
     _Out_ LPINT lpErrno
 ) {
+    if (chain)
+        return chain->procs.lpWSPBind(s, name, namelen, lpErrno);
+
     return baseProcTable.lpWSPBind(s, name, namelen, lpErrno);
 }
