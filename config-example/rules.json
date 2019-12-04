@@ -1,0 +1,25 @@
+﻿[
+  {
+    "name":"Normal",
+    "proxy":"Direct",
+    "programs":[
+      "*\\*.exe"
+    ],
+    "active":true,
+    "dstips":[],
+    "dsthosts":[],
+    "dstports":[]
+  },
+  {
+    "name":"Debug",
+    "proxy":"SSH Tunnel",
+    "programs":[
+      "*\\SocketTool.exe",
+      "*\\sokit.exe"
+    ],
+    "active":true,
+    "dstips":[],
+    "dsthosts":[],
+    "dstports":[]
+  }
+]
