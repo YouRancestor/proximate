@@ -188,8 +188,8 @@ Protocol* LoadProtocol(const Rule& rule, WSPPROC_TABLE baseProcTable)
     {
         cJSON* protocolName = cJSON_GetObjectItem(proxy, "protocol");
         //char* proto = protocolName->valuestring;
-
-        if (rule.proxyName != protocolName->valuestring)
+        cJSON* proxyName = cJSON_GetObjectItem(proxy, "name");
+        if (!proxyName->valuestring || rule.proxyName != proxyName->valuestring)
         {
             continue;
         }
@@ -220,6 +220,10 @@ Protocol* LoadProtocol(const Rule& rule, WSPPROC_TABLE baseProcTable)
             pwd = password->valuestring;
         }
 
+        if (!svr)
+        {
+            goto end;
+        }
 
         TCHAR protoPluginDir[MAX_PATH];
         int len = GetEnvironmentVariable(_T("PROXIMATE_ROOT"), protoPluginDir, MAX_PATH);
@@ -229,9 +233,9 @@ Protocol* LoadProtocol(const Rule& rule, WSPPROC_TABLE baseProcTable)
         std::wstring protoPluginPath = protoPluginDir;
         protoPluginPath = protoPluginPath
 #if (defined WIN64 || defined X64)
-        + L"\\dll64\\"
+        + L"\\protocol64\\"
 #else
-        + L"\\dll32\\"
+        + L"\\protocol32\\"
 #endif // WIN64
         + protoName + L".dll";
 
